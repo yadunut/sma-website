@@ -1,0 +1,148 @@
+<html>
+<style>
+  body {
+    padding: 30px;
+    background-color: whitesmoke;
+    font-family: Helvetica, sans-serif;
+    /* background-color: yellow; */
+    text-align: center;
+    color: black;
+  }
+
+  label {
+    font-size: 13px;
+  }
+
+  .wrapper {
+    display: inline-block;
+    width: 100%;
+    text-align: left;
+    /* background-color: red; */
+  }
+
+  .group {
+    display: block;
+  }
+
+  .group label {
+    display: inline-block;
+    padding: 10px 0px 10px 0px;
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  form input {
+    border: solid black 1.5px;
+    height: 30px;
+    width: 100%;
+    font-size: 16px;
+    padding: 5px;
+  }
+
+  form .submit {
+    width: 60%;
+    font-size: 17px;
+    border: solid black 2px;
+    background-color: whitesmoke;
+  }
+
+  @media screen and (min-width: 800px) {
+    .wrapper {
+      width: 30%;
+    }
+  }
+</style>
+
+<body>
+  <div class="wrapper">
+    <form action="/" method="post">
+      <h1>Member</h1>
+      <div class="group">
+        <label for="member_no">Member No.</label>
+        <input required type="text" name="member_no" pattern="^[AL][0-9]{6}$" />
+      </div>
+      <div class="group">
+        <label for="member_type">Type</label>
+        <select name="member_type">
+          <option disabled selected>Select</option>
+          <option>L</option>
+          <option>A</option>
+          <option>O</option>
+        </select>
+      </div>
+      <div class="group">
+        <label for="nric">NRIC</label>
+        <input required type="text" name="nric" pattern="^[TS][0-9]{7}[A-Z]$" />
+      </div>
+      <div class="group">
+        <label for="salutation">Salutation</label>
+        <select name="salutation">
+          <option disabled selected>Select</option>
+          <option>Mr.</option>
+          <option>Mrs.</option>
+          <option>Ms.</option>
+        </select>
+      </div>
+      <div class="group">
+        <label for="first_name">First Name</label>
+        <input required type="text" name="first_name" />
+      </div>
+      <div class="group">
+        <label for="last_name">Last Name</label>
+        <input required type="text" name="last_name" />
+      </div>
+      <div class="group">
+        <label for="email">Email</label>
+        <input required type="text" name="email" />
+      </div>
+      <div class="group">
+        <label for="phone">Phone</label>
+        <input required type="text" name="phone" />
+      </div>
+      <div class="group">
+        <label for="sex">Sex</label>
+        <select name="sex">
+          <option disabled selected>Select</option>
+          <option>Male</option>
+          <option>Female</option>
+        </select>
+      </div>
+      <div class="group">
+        <label for="citizenship">Citizenship</label>
+        <input required type="text" name="citizenship" />
+      </div>
+      <br>
+      <h1>Address</h1>
+      <div class="group">
+        <label for="line_1">Line 1</label>
+        <input required type="text" name="line_1" />
+      </div>
+      <div class="group">
+        <label for="line_2">Line 2</label>
+        <input required type="text" name="line_2" />
+      </div>
+      <div class="group">
+        <label for="city">City</label>
+        <input required type="text" name="city" />
+      </div>
+      <div class="group">
+        <label for="country">Country</label>
+        <input required type="text" name="country" />
+      </div>
+      <div class="group">
+        <label for="postal_code">Postal Code</label>
+        <input required type="text" name="postal_code" />
+      </div>
+      <br>
+      <br>
+      <center>
+        <div class="group">
+          <input class="submit" type="submit" />
+        </div>
+      </center>
+
+    </form>
+  </div>
+</body>
+
+</html>

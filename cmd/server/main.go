@@ -1,28 +1,33 @@
 package main
 
 import (
-	"github.com/yadunut/sma-website/http"
-	"github.com/joho/godotenv"
-
 	"os"
-	"mod/github.com/sirupsen/logrus@v1.0.5"
+
+	"github.com/joho/godotenv"
+	"github.com/sirupsen/logrus"
+	"github.com/yadunut/sma-website/http"
+	"github.com/yadunut/sma-website/postgresql"
 )
 
 func init() {
 	if err := godotenv.Load(); err != nil {
+		panic(err)
 	}
 }
 
-// Dependency inversion
-// create the dependencies and pass it to the function which needs it.
 func main() {
-
 	var (
-		port = os.Getenv("PORT")
-		logs = os.Getenv("LOGS")
+		port      = os.Getenv("PORT")
+		logs      = os.Getenv("LOGS")
+		dbConnStr = os.Getenv("DB")
+		debug     = os.Getenv("DEBUG")
 	)
 
 	logger := logrus.New()
+	if debug != "" {
+		logger.Formatter = &logrus.TextFormatter{ForceColors: true}
+		logger.Level = logrus.DebugLevel
+	}
 
 	if logs != "" {
 		f, err := os.Open(logs)
@@ -33,15 +38,28 @@ func main() {
 		logger.Out = f
 	} else {
 		logger.Out = os.Stdout
-	}
 
-	if port == "" {
-		port = "8080"
-	}
+		if port == "" {
+			port = ":8080"
+		}
 
-	server := http.Server{
-		Port:   port,
-		Logger: logger,
+		db, err := postgresql.Open(dbConnStr)
+		if err != nil {
+			logger.Error(err)
+		}
+		defer db.Close()
+
+		server := http.Server{
+			Port:     port,
+			Logger:   logger,
+			Database: db,
+		}
+
+		err = server.Listen()
+		if err != nil {
+			logger.Error(err)
+		}
+
+		os.Exit(1)
 	}
-	server.Listen()
 }
