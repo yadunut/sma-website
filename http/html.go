@@ -16,6 +16,9 @@ var (
 func init() {
 	assets = packr.NewBox("./assets")
 	templateBox := packr.NewBox("./templates")
+	if len(templateBox.List()) == 0 {
+		logrus.Error("No templates found")
+	}
 	templates = template.New("")
 	templateBox.Walk(func(s string, _ packr.File) error {
 		template.Must(templates.New(s).Parse(templateBox.String(s)))
