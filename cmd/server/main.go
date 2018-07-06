@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -49,10 +50,13 @@ func main() {
 		}
 		defer db.Close()
 
-		server := http.Server{
-			Port:     port,
-			Logger:   logger,
-			Database: db,
+		server, err := http.NewServer(
+			port,
+			logger,
+			db,
+		)
+		if err != nil {
+			logger.Error(fmt.Errorf("server initialization failed: %v", err))
 		}
 
 		err = server.Listen()

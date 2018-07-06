@@ -5,5 +5,5 @@ import (
 )
 
 func (s *Server) showRegister(w http.ResponseWriter, r *http.Request) {
-	renderTemplate(w, "register.tmpl", nil)
+	s.renderTemplate(w, "register.tmpl", nil)
 }
